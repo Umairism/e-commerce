@@ -1,0 +1,24 @@
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.navbar-light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.navbar-dark {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.navbar-toggler {
+  cursor: pointer;
+}
