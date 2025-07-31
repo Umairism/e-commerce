@@ -7,11 +7,11 @@ import '../styles/Navbar.css';
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { getCartItemsCount } = useCart();
+  const { getCartItemCount } = useCart();
   const { searchTerm, setSearchTerm } = useProducts();
   const location = useLocation();
   const navigate = useNavigate();
-  const cartItemsCount = getCartItemsCount();
+  const cartItemsCount = getCartItemCount();
 
   const isActive = (path) => location.pathname === path;
 
