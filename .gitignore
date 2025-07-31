@@ -1,2 +1,42 @@
+# Dependencies
+Frontend/node_modules/
+Backend/__pycache__/
+Backend/*.pyc
+
+# Build outputs
+Frontend/build/
+Backend/staticfiles/
+
+# Environment files (keep the templates)
+Frontend/.env.local
+Frontend/.env.development.local
+Frontend/.env.test.local
+Frontend/.env.production.local
+
+# Database
+Backend/db.sqlite3
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
 # Local Netlify folder
 .netlify
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db

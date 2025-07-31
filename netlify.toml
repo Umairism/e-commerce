@@ -1,12 +1,15 @@
 [build]
-  # Build command for React app
-  command = "cd Frontend && npm install && npm run build"
+  # Set base directory to Frontend
+  base = "Frontend"
   
-  # Publish directory (React build output)
-  publish = "Frontend/build"
+  # Build command (will run from Frontend directory)
+  command = "npm install && npm run build"
   
-  # Functions directory
-  functions = "netlify/functions"
+  # Publish directory (relative to base)
+  publish = "build"
+  
+  # Functions directory (relative to repo root)
+  functions = "../netlify/functions"
 
 [build.environment]
   # Node.js version
