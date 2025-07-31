@@ -15,8 +15,32 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from django.http import JsonResponse
+
+def api_root(request):
+    return JsonResponse({
+        'message': 'E-commerce API is running!',
+        'version': '1.0',
+        'endpoints': {
+            'admin': '/admin/',
+            'categories': '/api/categories/',
+            'products': '/api/products/',
+            'featured_products': '/api/products/featured/',
+            'product_search': '/api/products/search/',
+            'cart': '/api/cart/',
+            'orders': '/api/orders/',
+        }
+    })
 
 urlpatterns = [
+    path('', api_root, name='api-root'),
     path('admin/', admin.site.urls),
+    path('api/', include('store.urls')),
 ]
+
+# Serve media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
