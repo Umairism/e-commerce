@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useProducts } from '../contexts/ProductContext';
 import { useCart } from '../contexts/CartContext';
-import LoadingSpinner from '../components/LoadingSpinner';
 import '../styles/ProductDetails.css';
 
 function ProductDetails() {

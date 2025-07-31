@@ -74,7 +74,8 @@
   gap: 1rem;
 }
 
-.social-links a {
+.social-links a,
+.social-links .social-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -86,9 +87,12 @@
   text-decoration: none;
   transition: all 0.3s ease;
   font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
 }
 
-.social-links a:hover {
+.social-links a:hover,
+.social-links .social-link:hover {
   background: #667eea;
   transform: translateY(-2px);
 }

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import ApiService from '../services/api';
 
@@ -110,23 +110,7 @@ const initialState = {
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
-  // Load cart on mount
-  useEffect(() => {
-    loadCart();
-  }, []);
-
-  const loadCart = async () => {
-    try {
-      dispatch({ type: 'SET_LOADING', payload: true });
-      const cartData = await ApiService.getCart();
-      dispatch({ type: 'SET_CART', payload: cartData });
-    } catch (error) {
-      console.warn('API cart loading failed, using localStorage:', error);
-      loadCartFromStorage();
-    }
-  };
-
-  const loadCartFromStorage = () => {
+  const loadCartFromStorage = useCallback(() => {
     try {
       const savedCart = localStorage.getItem('cart');
       if (savedCart) {
@@ -139,22 +123,38 @@ export const CartProvider = ({ children }) => {
       console.error('Failed to load cart from storage:', error);
       dispatch({ type: 'SET_LOADING', payload: false });
     }
-  };
+  }, []);
 
-  const saveCartToStorage = () => {
+  const loadCart = useCallback(async () => {
+    try {
+      dispatch({ type: 'SET_LOADING', payload: true });
+      const cartData = await ApiService.getCart();
+      dispatch({ type: 'SET_CART', payload: cartData });
+    } catch (error) {
+      console.warn('API cart loading failed, using localStorage:', error);
+      loadCartFromStorage();
+    }
+  }, [loadCartFromStorage]);
+
+  const saveCartToStorage = useCallback(() => {
     try {
       localStorage.setItem('cart', JSON.stringify(state.items));
     } catch (error) {
       console.error('Failed to save cart to storage:', error);
     }
-  };
+  }, [state.items]);
+
+  // Load cart on mount
+  useEffect(() => {
+    loadCart();
+  }, [loadCart]);
 
   // Save to localStorage whenever cart changes
   useEffect(() => {
     if (!state.loading && state.items.length >= 0) {
       saveCartToStorage();
     }
-  }, [state.items, state.loading]);
+  }, [state.items, state.loading, saveCartToStorage]);
 
   const addToCart = async (product) => {
     try {

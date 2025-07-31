@@ -15,10 +15,10 @@ function Footer() {
             Your trusted partner for quality products and exceptional shopping experience.
           </p>
           <div className="social-links">
-            <a href="#" aria-label="Facebook">📘</a>
-            <a href="#" aria-label="Twitter">🐦</a>
-            <a href="#" aria-label="Instagram">📷</a>
-            <a href="#" aria-label="LinkedIn">💼</a>
+            <button type="button" className="social-link" aria-label="Facebook">📘</button>
+            <button type="button" className="social-link" aria-label="Twitter">🐦</button>
+            <button type="button" className="social-link" aria-label="Instagram">📷</button>
+            <button type="button" className="social-link" aria-label="LinkedIn">💼</button>
           </div>
         </div>
 
