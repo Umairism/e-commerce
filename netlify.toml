@@ -1,6 +1,6 @@
 [build]
   # Build command for React app
-  command = "cd Frontend && npm run build"
+  command = "cd Frontend && npm install && npm run build"
   
   # Publish directory (React build output)
   publish = "Frontend/build"
@@ -11,6 +11,9 @@
 [build.environment]
   # Node.js version
   NODE_VERSION = "18"
+  
+  # NPM configuration
+  NPM_FLAGS = "--production=false"
   
   # React environment variables
   REACT_APP_API_URL = "/.netlify/functions"
