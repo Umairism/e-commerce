@@ -1,0 +1,58 @@
+[build]
+  # Set base directory to Frontend
+  base = "Frontend"
+  
+  # Build command (will run from Frontend directory)
+  command = "npm install && npm run build"
+  
+  # Publish directory (relative to base)
+  publish = "build"
+  
+  # Functions directory (relative to repo root)
+  functions = "../netlify/functions"
+
+[build.environment]
+  # Node.js version (updated for React Router Dom 7.x compatibility)
+  NODE_VERSION = "20"
+  
+  # NPM configuration
+  NPM_FLAGS = "--production=false"
+  
+  # React environment variables
+  REACT_APP_API_URL = "/.netlify/functions"
+
+# Redirect all API calls to Netlify Functions
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Redirect all other requests to index.html for React Router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers for CORS
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Content-Type, Authorization, X-Session-ID"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Content-Type, Authorization, X-Session-ID"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
